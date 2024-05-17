@@ -8,7 +8,7 @@ public class UserDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private String namne;
+	private String name;
 	private String email;
 	
 	public UserDTO() {
@@ -16,7 +16,7 @@ public class UserDTO  implements Serializable{
 	
 	public UserDTO(User user) {
 		id = user.getId();
-		namne = user.getName();
+		name = user.getName();
 		email = user.getEmail();
 	}
 
@@ -28,12 +28,12 @@ public class UserDTO  implements Serializable{
 		this.id = id;
 	}
 
-	public String getNamne() {
-		return namne;
+	public String getName() {
+		return name;
 	}
 
-	public void setNamne(String namne) {
-		this.namne = namne;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
