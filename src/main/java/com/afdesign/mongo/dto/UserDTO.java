@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import com.afdesign.mongo.domain.Post;
 import com.afdesign.mongo.domain.User;
 
@@ -14,7 +16,7 @@ public class UserDTO  implements Serializable{
 	private String name;
 	private String email;
 	
-	
+	@DBRef(lazy = true)
 	private List<Post> posts = new ArrayList<>();
 	
 	public UserDTO() {
