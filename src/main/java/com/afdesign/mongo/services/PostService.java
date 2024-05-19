@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.afdesign.mongo.domain.Post;
-import com.afdesign.mongo.domain.User;
-import com.afdesign.mongo.dto.PostDTO;
-import com.afdesign.mongo.dto.UserDTO;
 import com.afdesign.mongo.repository.PostRepository;
 import com.afdesign.mongo.services.exceptions.ObjectNotFoundException;
 
@@ -47,10 +44,6 @@ public class PostService {
 	private void updateData(Post p, Post post) {
 		p.setTitle(post.getTitle());
 		p.setBody(post.getBody());
-	}
-
-	public Post fromDTO(PostDTO postDTO) {
-		return new Post(postDTO.getId(),postDTO.getDate(), postDTO.getTitle() , postDTO.getBody());
 	}
 
 }

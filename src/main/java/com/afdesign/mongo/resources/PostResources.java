@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.afdesign.mongo.domain.Post;
-import com.afdesign.mongo.domain.User;
-import com.afdesign.mongo.dto.PostDTO;
-import com.afdesign.mongo.dto.UserDTO;
 import com.afdesign.mongo.services.PostService;
 
 @RestController
@@ -35,14 +32,13 @@ public class PostResources {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PostDTO> findById(@PathVariable String id) {
+	public ResponseEntity<Post> findById(@PathVariable String id) {
 		Post post = service.findById(id);
-		return ResponseEntity.ok().body(new PostDTO(post));
+		return ResponseEntity.ok().body(post);
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody PostDTO postDTO) {
-		Post post = service.fromDTO(postDTO);
+	public ResponseEntity<Void> insert(@RequestBody Post post) {
 		post = service.insert(post);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -55,8 +51,7 @@ public class PostResources {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody PostDTO postDTO, @PathVariable String id) {
-		Post post = service.fromDTO(postDTO);
+	public ResponseEntity<Void> update(@RequestBody Post post, @PathVariable String id) {
 		post.setId(id);
 		post = service.update(post);
 		return ResponseEntity.noContent().build();
