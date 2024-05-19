@@ -1,12 +1,17 @@
 package com.afdesign.mongo.config;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.afdesign.mongo.domain.Post;
 import com.afdesign.mongo.domain.User;
+import com.afdesign.mongo.repository.PostRepository;
 import com.afdesign.mongo.repository.UserRepository;
 
 @Configuration
@@ -14,24 +19,33 @@ public class Instantiation implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PostRepository postRepo;
 
 	
 
 	@Override
 	public void run(String... arg0) throws Exception {
 		
-		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		userRepository.deleteAll();
-
+		postRepo.deleteAll();
 	
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
+		Post post1 = new Post(null, LocalDate.parse("08/06/1996", dtf), "Bom dia mundo!!", "Estou viajando");
+		Post post2 = new Post(null, LocalDate.parse("18/02/2017", dtf), "Partiu Viagem", "Mais uma viagem linda!!");
+		post1.setAuthor(alex);
+		post2.setAuthor(bob);
+		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
+		postRepo.saveAll(Arrays.asList(post1,post2));
 		
 	}
 }
