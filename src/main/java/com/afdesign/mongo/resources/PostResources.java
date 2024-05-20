@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.afdesign.mongo.domain.Post;
+import com.afdesign.mongo.resources.util.URL;
 import com.afdesign.mongo.services.PostService;
 
 @RestController
@@ -55,5 +57,12 @@ public class PostResources {
 		post.setId(id);
 		post = service.update(post);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/titlesearch")
+	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "title", defaultValue = "") String title) {
+		title = URL.decodeParam(title);
+		List<Post> list = service.findByTitle(title);
+		return ResponseEntity.ok().body(list);
 	}
 }

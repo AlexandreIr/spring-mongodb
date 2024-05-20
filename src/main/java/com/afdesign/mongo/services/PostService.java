@@ -39,11 +39,13 @@ public class PostService {
 		updateData(p, post);
 		return repo.save(p);
 	}
-	
-
 	private void updateData(Post p, Post post) {
 		p.setTitle(post.getTitle());
 		p.setBody(post.getBody());
+	}
+	
+	public List<Post> findByTitle(String title) {
+		return repo.findByTitleContainingIgnoreCase(title);
 	}
 
 }
